@@ -9,7 +9,7 @@ export default async function Album() {
         <div className="max-w-screen-lg mx-auto p-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {flickrData.photos.photo.map((data: any, index: number) => {
-                    const url = getPhotoUrl(data, "m");
+                    const url = getPhotoUrl(data, "w");
                     return (
                         <div
                             key={index}

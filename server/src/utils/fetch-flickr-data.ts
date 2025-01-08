@@ -12,7 +12,7 @@ type FlickrResponse = {
     };
 };
 
-export const getPhotoUrl = (photo: Photo, size: string = "m") =>  `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`;
+export const getPhotoUrl = (photo: Photo, size: string = "z" ) =>  `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_${size}.jpg`;
 
 
 export const fetchFlickrData = async():Promise<FlickrResponse> => {
