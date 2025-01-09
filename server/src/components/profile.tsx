@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-const ProfileCard = () => {
+export default async function ProfileCard() {
+  const t = await getTranslations("");
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       {/* 顔写真と名前 */}
@@ -13,7 +16,7 @@ const ProfileCard = () => {
           height={200}
         />
         <div>
-          <h1 className="text-3xl font-semibold">後藤 倫宏</h1>
+          <h1 className="text-3xl font-semibold">{t("profile.name")}</h1>
           <p className="text-gray-500">Frontend Developer</p>
         </div>
       </div>
@@ -78,6 +81,4 @@ const ProfileCard = () => {
       </section>
     </div>
   );
-};
-
-export default ProfileCard;
+}
