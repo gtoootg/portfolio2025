@@ -7,6 +7,14 @@ export const routing = defineRouting({
 
   // Used when no locale matches
   defaultLocale: "en",
+
+  pathnames: {
+    "/": "/",
+    "/album": {
+      en: "/album",
+      jp: "/syashin",
+    },
+  },
 });
 
 // Lightweight wrappers around Next.js' navigation APIs
