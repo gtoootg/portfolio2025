@@ -1,8 +1,9 @@
-import { fetchFlickrData, getPhotoUrl } from "@/utils/fetch-flickr-data";
+import { fetchFlickrPhotos, getPhotoUrl } from "@/utils/flickr-api";
 import Image from "next/image";
+import { Link } from "@/i18n/routing";
 
 export default async function Album() {
-  const flickrData = await fetchFlickrData();
+  const flickrData = await fetchFlickrPhotos();
 
   return (
     <div className="max-w-screen-lg mx-auto p-4">
@@ -14,13 +15,15 @@ export default async function Album() {
               key={index}
               className="relative overflow-hidden rounded-lg shadow-lg transition-opacity duration-300 ease-in-out hover:opacity-100 opacity-80"
             >
-              <Image
-                src={url}
-                alt=""
-                width={300}
-                height={200}
-                className="object-cover w-full h-full"
-              />
+              <Link href={{ pathname: "/album/[id]", params: { id: data.id } }}>
+                <Image
+                  src={url}
+                  alt=""
+                  width={300}
+                  height={200}
+                  className="object-cover w-full h-full"
+                />
+              </Link>
             </div>
           );
         })}

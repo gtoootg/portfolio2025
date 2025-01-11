@@ -19,12 +19,12 @@ export default function LocaleSwitcherSelect({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
-  // const params = useParams();
+  const params = useParams() as any;
 
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value;
     startTransition(() => {
-      router.replace({ pathname }, { locale: nextLocale });
+      router.replace({ pathname, params }, { locale: nextLocale });
     });
   }
 
