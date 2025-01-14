@@ -1,6 +1,12 @@
-import { fetchFlickrPhotoInfoById, getPhotoUrl } from "@/utils/flickr-api";
+import {
+  fetchFlickrPhotoExif,
+  fetchFlickrPhotoInfoById,
+  getPhotoUrl,
+} from "@/utils/flickr-api";
 import Image from "next/image";
-import Link from "next/link";
+import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
+
+import GoogleMapApi from "@/components/google-map/google-map";
 interface PhotoDetailProps {
   photo: {
     title: string;
@@ -19,75 +25,125 @@ interface PhotoPageProps {
 export default async function PhotoDetailPage({ params }: PhotoPageProps) {
   const { id } = await params;
 
-  // Flickr APIから写真情報を取得
   const { photo } = await fetchFlickrPhotoInfoById(id);
-
-  // 写真のURLを取得
-  const url = getPhotoUrl(photo, "z");
+  const { camera, iso, fNumber, exposure, focalLength } =
+    await fetchFlickrPhotoExif(id);
+  const url = getPhotoUrl(photo, "b");
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg overflow-hidden">
-      {/* 写真 */}
-      <div className="relative h-96 rounded-lg overflow-hidden group">
-        <Image
-          src={url}
-          alt={photo.title._content}
-          layout="fill"
-          objectFit="cover"
-          className="transform transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-
-      {/* 写真タイトル */}
-      <h1 className="text-4xl font-extrabold text-gray-800 mt-6">
-        {photo.title._content || "Untitled"}
-      </h1>
-
-      {/* オーナー情報 */}
-      <div className="flex items-center mt-4">
-        {/*<Image*/}
-        {/*    src={`https://farm${photo.owner.iconfarm}.staticflickr.com/${photo.owner.iconserver}/buddyicons/${photo.owner.nsid}.jpg`}*/}
-        {/*    alt={photo.owner.username}*/}
-        {/*    width={50}*/}
-        {/*    height={50}*/}
-        {/*    className="rounded-full border-2 border-gray-300"*/}
-        {/*/>*/}
-        <div className="ml-4">
-          <p className="text-lg font-semibold">
-            {photo.owner.realname || photo.owner.username}
-          </p>
-          <p className="text-sm text-gray-500">
-            Uploaded on{" "}
-            {new Date(parseInt(photo.dates.posted) * 1000).toLocaleDateString()}
-          </p>
+    <>
+      <div className={"w-full bg-gray-700 h-[600px]"}>
+        <div className={"flex justify-center items-center gap-3"}>
+          <ChevronLeftIcon className="w-10 h-10 text-gray-300 hover:text-white" />
+          <Image
+            src={url}
+            alt={photo.title._content}
+            width={810}
+            height={540}
+          />
+          <ChevronRightIcon className="w-10 h-10 text-gray-300 hover:text-white" />
         </div>
       </div>
 
-      {/* 説明文 */}
-      <p className="text-lg text-gray-700 mt-6 leading-relaxed">
-        {photo.description._content || "No description available."}
-      </p>
+      <div className="max-w-4xl mx-auto bg-white rounded-xl  overflow-hidden">
+        <h1 className="text-4xl font-extrabold text-gray-800 mt-6">
+          {photo.title._content || "Untitled"}
+        </h1>
 
-      {/* 撮影情報 */}
-      <div className="grid grid-cols-2 gap-4 mt-8 text-center">
-        <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-          <p className="text-sm text-gray-500">Taken On</p>
-          <p className="font-bold text-gray-800">{photo.dates.taken}</p>
+        <div className="flex items-center mt-4">
+          <div className="ml-4">
+            <p className="text-lg font-semibold">
+              {photo.owner.realname || photo.owner.username}
+            </p>
+            <p className="text-sm text-gray-500">
+              Uploaded on{" "}
+              {new Date(
+                parseInt(photo.dates.posted) * 1000,
+              ).toLocaleDateString()}
+            </p>
+            <p className="text-sm text-gray-500">
+              Taken on {new Date(photo.dates.taken).toLocaleDateString()}
+            </p>
+          </div>
         </div>
-        <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-          <p className="text-sm text-gray-500">Views</p>
-          <p className="font-bold text-gray-800">{photo.views}</p>
+
+        <p className="text-lg text-gray-700 mt-6 leading-relaxed">
+          {photo.description._content || "No description available."}
+        </p>
+
+        {/* 撮影情報 */}
+        <div className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            📸 撮影データ
+          </h2>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
+            <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">カメラ</p>
+              <p className="font-bold text-gray-800">{camera || "N/A"}</p>
+            </div>
+            <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">ISO感度</p>
+              <p className="font-bold text-gray-800">{iso || "N/A"}</p>
+            </div>
+            <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">F値（絞り）</p>
+              <p className="font-bold text-gray-800">{fNumber || "N/A"}</p>
+            </div>
+            <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">シャッター速度</p>
+              <p className="font-bold text-gray-800">{exposure || "N/A"}</p>
+            </div>
+            <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">焦点距離</p>
+              <p className="font-bold text-gray-800">{focalLength || "N/A"}</p>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* 戻るボタン */}
-      <div className="mt-8 text-center">
-        <Link href="/album">
-          <button className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-lg font-semibold rounded-full shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl">
-            ← Back to Album
-          </button>
-        </Link>
-      </div>
-    </div>
+    </>
   );
+}
+
+{
+  /*{photo.location?.latitude && photo.location?.longitude && (*/
+}
+{
+  /*  <div className="mt-8 h-[200px] w-[400px]">*/
+}
+{
+  /*    <h2 className="text-2xl font-bold text-gray-800">Location</h2>*/
+}
+{
+  /*    <div className="mt-4">*/
+}
+{
+  /*      <GoogleMapApi*/
+}
+{
+  /*        center={{*/
+}
+{
+  /*          lat: Number(photo.location.latitude),*/
+}
+{
+  /*          lng: Number(photo.location.longitude),*/
+}
+{
+  /*        }}*/
+}
+{
+  /*        zoom={10}*/
+}
+{
+  /*      />*/
+}
+{
+  /*    </div>*/
+}
+{
+  /*  </div>*/
+}
+{
+  /*)}*/
 }

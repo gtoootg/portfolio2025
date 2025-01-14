@@ -76,6 +76,7 @@ interface FlickrPhotoInfo {
   tags: { tag: unknown[] };
   urls: FlickrPhotoUrls;
   media: string;
+  location?: { latitude: string; longitude: string };
 }
 
 interface FetchFlickrPhotoInfoResponse {
@@ -87,6 +88,32 @@ export type FetchFlickrPhotosResponse = {
   photos: {
     photo: FlickrPhotoInfo[];
   };
+};
+
+interface GetExifDataResponse {
+  photo: {
+    id: string;
+    secret: string;
+    server: string;
+    fam: number;
+    camera: string;
+    exif: {
+      tagspace: string;
+      tagspaceid: number;
+      tag: string;
+      label: string;
+      raw: {
+        _content: string;
+      };
+    }[];
+  };
+  stat: string;
+}
+
+const filterExifData = (exifData: GetExifDataResponse, tagName: string) => {
+  return exifData.photo.exif.find((data) => data.tag === tagName)?.raw[
+    "_content"
+  ];
 };
 
 export const getPhotoUrl = (photo: FlickrPhotoInfo, size: string = "z") =>
@@ -140,4 +167,38 @@ export const fetchFlickrPhotoInfoById = async (
   const data = await response.json();
 
   return data;
+};
+
+export const fetchFlickrPhotoExif = async (
+  id: string,
+): Promise<Record<string, string>> => {
+  const { FLICKR_API_KEY, FLICKR_API_URL } = process.env;
+
+  if (!FLICKR_API_KEY || !FLICKR_API_URL) {
+    throw new Error("Missing API key or User ID");
+  }
+
+  const params = new URLSearchParams({
+    method: "flickr.photos.getExif",
+    api_key: FLICKR_API_KEY,
+    photo_id: id,
+    format: "json",
+    nojsoncallback: "1",
+  });
+
+  const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch photos: ${response.statusText}`);
+  }
+
+  const exifData = await response.json(); // JSONデータを取得
+
+  return {
+    camera: exifData.photo.camera || "---",
+    iso: filterExifData(exifData, "ISO") || "---",
+    fNumber: filterExifData(exifData, "FNumber") || "---",
+    exposure: filterExifData(exifData, "ExposureTime") || "---",
+    focalLength: filterExifData(exifData, "FocalLength") || "---",
+  };
 };

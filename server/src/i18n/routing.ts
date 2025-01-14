@@ -14,6 +14,10 @@ export const routing = defineRouting({
       en: "/album",
       jp: "/syashin",
     },
+    "/about": {
+      en: "/about",
+      jp: "/jiko-shoukai",
+    },
     "/album/[id]": {
       en: "/album/[id]",
       jp: "/syashin/[id]",
