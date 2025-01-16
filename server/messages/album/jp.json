@@ -1,0 +1,15 @@
+{
+
+    "uploadedOn": "投稿日: {date}",
+    "takenOn": "撮影日: {date}",
+    "noDescription": "説明はありません。",
+    "noLocation": "ロケーション情報がありません",
+    "photoData": "撮影データ",
+    "camera": "カメラ",
+    "iso": "ISO感度",
+    "fNumber": "F値（絞り）",
+    "exposure": "シャッター速度",
+    "focalLength": "焦点距離",
+    "untitled": "タイトルなし"
+
+}
