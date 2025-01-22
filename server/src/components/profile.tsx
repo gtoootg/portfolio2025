@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 export default async function ProfileCard() {
-  const t = await getTranslations("");
+  const t = await getTranslations("/about");
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -16,7 +16,7 @@ export default async function ProfileCard() {
           height={200}
         />
         <div>
-          <h1 className="text-3xl font-semibold">{t("profile.name")}</h1>
+          <h1 className="text-3xl font-semibold">{t("name")}</h1>
           <p className="text-gray-500">Frontend Developer</p>
         </div>
       </div>
@@ -37,13 +37,15 @@ export default async function ProfileCard() {
           <li className="mb-4">
             <strong>Techpilot dynamic markets Gmbh</strong> - Frontend Developer
             (2022〜)
-            <p>機械部品の調達プラットフォームの開発</p>
             <p>
-              新機能の実装、バグ修正、E2Eテスト (React, Redux, Typescript,
-              Cypress)
+              機械部品の調達プラットフォームの開発（フロントエンド、及び一部バックエンドを担当）
             </p>
-            <p>APIのバグ修正 (.NET, PostgreSQL)</p>
-            <p>Webサイト実装 (NextJS, Typescript)</p>
+            <p>
+              フロントエンド: 新機能実装、バグ修正、E2Eテスト (React, Redux,
+              Typescript, Cypress)
+            </p>
+            <p>バックエンド: APIのバグ修正(.NET, PostgreSQL)</p>
+            <p>自社Webサイトの開発</p>
           </li>
           <li className="mb-4">
             <strong>Koyo Deustchland Gmbh JTEKT European Operation</strong> -
@@ -54,7 +56,8 @@ export default async function ProfileCard() {
           <li className="mb-4">
             <strong>株式会社ジェイテクト</strong> -
             機械設計エンジニア(2016-2019)
-            <p>自動車ホイール用軸受の設計</p>
+            <p>自動車ホイール用軸受の設計およびプロジェクト管理</p>
+            <p>新入社員および外国人スタッフのOJT指導</p>
           </li>
         </ul>
       </section>

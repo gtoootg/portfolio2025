@@ -3,7 +3,20 @@
 {
   "title": "Hello world!",
   "about": "Hellow about",
-  "profile": {
+  "/about": {
     "name": "Michihiro Goto"
+  },
+  "/album": {
+    "uploadedOn": "Uploaded on {date}",
+    "takenOn": "Taken on {date}",
+    "noDescription": "No description available.",
+    "noLocation": "Location information is not available",
+    "photoData": "Photo Details",
+    "camera": "Camera",
+    "iso": "ISO",
+    "fNumber": "Aperture (F-number)",
+    "exposure": "Shutter Speed",
+    "focalLength": "Focal Length",
+    "untitled": "Untitled"
   }
 }
