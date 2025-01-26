@@ -15,5 +15,5 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   // Match only internationalized pathnames
-  matcher: ["/", "/(de|jp)/:path*"],
+  matcher: ["/", "/(en|jp)/:path*"],
 };
