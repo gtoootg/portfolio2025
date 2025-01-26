@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useParams } from "next/navigation";
-import { ChangeEvent, ReactNode, useTransition } from "react";
+import { ChangeEvent, useTransition } from "react";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 interface Props {
@@ -19,11 +19,13 @@ export default function LocaleSwitcherSelect({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
-  const params = useParams() as any;
+
+  const params = useParams();
 
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value;
     startTransition(() => {
+      // @ts-expect-error any type
       router.replace({ pathname, params }, { locale: nextLocale });
     });
   }

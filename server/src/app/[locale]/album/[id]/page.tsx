@@ -10,25 +10,23 @@ import GoogleMapApi from "@/components/google-map/google-map";
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/16/solid";
 import { getTranslations } from "next-intl/server";
-interface PhotoDetailProps {
-  photo: {
-    title: string;
-    description: string;
-    url: string;
-  };
-}
 
-interface PhotoPageProps {
+// interface PhotoPageProps {
+//   params: {
+//     locale: string;
+//     id: string;
+//   };
+// }
+
+export default async function PhotoDetailPage({
+  params,
+}: {
   params: {
     locale: string;
     id: string;
   };
-}
-
-export default async function PhotoDetailPage({
-  params,
-}: PhotoPageProps & { locale: string }) {
-  const { id, locale } = await params;
+}) {
+  const { id } = await params;
 
   const { photo } = await fetchFlickrPhotoInfoById(id);
   const { camera, iso, fNumber, exposure, focalLength } =

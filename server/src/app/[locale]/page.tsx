@@ -1,4 +1,3 @@
-import ProfileCard from "@/components/profile";
 import { Link } from "@/i18n/routing";
 
 export default function Home() {
