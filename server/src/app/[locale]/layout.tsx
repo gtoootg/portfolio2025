@@ -4,6 +4,8 @@ import "../globals.css";
 import Header from "@/components/header";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,10 +27,15 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }>) {
   const messages = await getMessages();
   const { locale } = await params;
+
+  // @ts-expect-error any type
+  if (!routing.locales.includes(locale)) {
+    notFound();
+  }
 
   return (
     <html lang={locale}>
