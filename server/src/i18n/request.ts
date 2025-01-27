@@ -6,7 +6,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
 
   // Ensure that a valid locale is used
-  // @ts-expect-error any type
+  // eslint-disable-next-line
   if (!locale || !routing.locales.includes(locale)) {
     locale = routing.defaultLocale;
   }
