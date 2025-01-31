@@ -135,10 +135,15 @@ export const fetchFlickrPhotos =
       nojsoncallback: "1",
     });
 
-    const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`);
+    const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`, {
+      cache: "force-cache",
+      next: { revalidate: 60 },
+    });
+
     if (!response.ok) {
       throw new Error(`Failed to fetch photos: ${response.statusText}`);
     }
+
     const data = await response.json();
 
     return data;
@@ -160,7 +165,10 @@ export const fetchFlickrPhotoInfoById = async (
     nojsoncallback: "1",
   });
 
-  const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`);
+  const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`, {
+    cache: "force-cache",
+    next: { revalidate: 60 },
+  });
   if (!response.ok) {
     throw new Error(`Failed to fetch photos: ${response.statusText}`);
   }
@@ -186,7 +194,10 @@ export const fetchFlickrPhotoExif = async (
     nojsoncallback: "1",
   });
 
-  const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`);
+  const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`, {
+    cache: "force-cache",
+    next: { revalidate: 60 },
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch photos: ${response.statusText}`);

@@ -1,4 +1,4 @@
-import { fetchFlickrPhotos, getPhotoUrl } from "@/utils/flickr-api";
+import { fetchFlickrPhotos, getPhotoUrl } from "@/api/flickr-api";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 

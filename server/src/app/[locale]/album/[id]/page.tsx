@@ -2,7 +2,7 @@ import {
   fetchFlickrPhotoExif,
   fetchFlickrPhotoInfoById,
   getPhotoUrl,
-} from "@/utils/flickr-api";
+} from "@/api/flickr-api";
 import Image from "next/image";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 
@@ -10,13 +10,6 @@ import GoogleMapApi from "@/components/google-map/google-map";
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/16/solid";
 import { getTranslations } from "next-intl/server";
-
-// interface PhotoPageProps {
-//   params: {
-//     locale: string;
-//     id: string;
-//   };
-// }
 
 export default async function PhotoDetailPage({
   params,
