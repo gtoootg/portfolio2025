@@ -1,6 +1,11 @@
 {
   "title": "Hello world!",
   "about": "Hellow about",
+
+  "top":{
+    "caption":"ドイツ在住エンジニアの後藤倫宏です。このサイトでは、自身の経歴やドイツでの趣味について紹介しています。",
+    "link": "詳しく見る"
+  },
   "/about": {
     "name": "後藤 倫宏"
   },

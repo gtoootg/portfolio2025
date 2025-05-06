@@ -3,6 +3,12 @@
 {
   "title": "Hello world!",
   "about": "Hellow about",
+  
+  "top":{
+    "caption":"I am Michihiro Goto, Japanese working as a software developer in Munich. In this website, I introcude about myself such as background and hobbies",
+    "link": "See my profile"
+  },
+
   "/about": {
     "name": "Michihiro Goto"
   },
