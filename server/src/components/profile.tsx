@@ -3,17 +3,16 @@ import { getTranslations } from "next-intl/server";
 
 import techpilotImage from "../../public/techpilot.webp"
 
-export default async function ProfileCard({imageUrl,imageAlt, title,caption
-}:{imageUrl:StaticImageData, imageAlt:string,title:string,caption:string}) {
+export default async function ProfileCard({imageUrl,imageAlt, title,caption,flexReverse=false
+}:{imageUrl:StaticImageData, imageAlt:string,title:string,caption:string, flexReverse?:boolean}) {
   
 
    return (
-      <div className="flex gap-12 items-center">
+    <div className={`flex gap-12 items-center ${flexReverse ? "flex-row-reverse" : "flex-row"}`}>
         <Image
           src={imageUrl} // ここに実際の顔写真を入れる
           alt={imageAlt}
           className="shadow-xl"
-          // className="w-[200px] h-[200px]"
           width={600}
           height={400}
         />
