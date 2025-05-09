@@ -10,7 +10,22 @@
   },
 
   "/about": {
-    "name": "Michihiro Goto"
+    "aboutMe": {
+    "title": "About Me",
+    "caption": "I’m a 33-year-old from Shiga Prefecture, Japan. I majored in mechanical engineering at university and worked for three years at an automotive parts manufacturer in Osaka. In 2019, I moved to Germany, and this is now my 7th year living here. Currently, I work as a frontend web developer at a company in Munich. My recent hobby is exploring various parts of Europe by road bike."
+  },
+  "whyGermany": {
+    "title": "Why I Moved to Germany",
+    "caption": "To put it simply, I was fascinated by life abroad in my younger years. During university, I traveled abroad frequently and interacted with many international students, which inspired me to pursue a life in a more international environment. I realized I needed to leave Japan to achieve this and began seriously considering Germany, where it’s relatively easy to find jobs in engineering. After working for three years at an automotive parts company in Japan, I planned to quit and look for a job in Germany. Fortunately, I was offered a local contract by the German subsidiary of the same company, which allowed me to move to Germany in 2019."
+  },
+  "careerChange": {
+    "title": "From Automotive to IT Industry",
+    "caption": "I worked in automotive parts design for six years after graduating, but I couldn’t find true passion for the job and started considering a career change. That’s when I came across Progate, a platform for learning programming. I discovered the field of web development and became deeply interested in it. After six months of learning frontend languages and building a simple portfolio, I started job hunting in Germany. Luckily, web development was in high demand at the time, and I received several offers, which allowed me to start my career as a web developer in 2022."
+  },
+  "currentJob": {
+    "title": "Work at a German Company",
+    "caption": "I’m currently working at Techpilot Dynamic Markets in Munich, Germany, where we develop a procurement platform for mechanical parts. My main responsibilities are in frontend development, but I’ve also recently started contributing to backend tasks (technologies used include React, Next.js, Redux, and C#). All of my colleagues are German, and while the company operates in German, I communicate in English for work-related matters."
+  }
   },
   "/album": {
     "uploadedOn": "Uploaded on {date}",
