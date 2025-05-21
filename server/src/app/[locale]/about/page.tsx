@@ -2,7 +2,7 @@ import ProfileCard from "@/components/profile";
 import { getTranslations } from "next-intl/server";
 import techpilotImage from "../../../../public/techpilot.webp";
 import programmingImage from "../../../../public/programming.jpg";
-import profileImage from "../../../../public/profile.jpg";
+import profileImage from "../../../../public/profile.webp";
 import cologneImage from "../../../../public/cologne.jpg";
 //自己紹介
 //なぜドイツに移住したのか
