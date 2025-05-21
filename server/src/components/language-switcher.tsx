@@ -12,7 +12,7 @@ export default function LocaleSwitcher() {
   return (
     <LocaleSwitcherSelect defaultValue={locale} label={currentValue}>
       {routing.locales.map((cur) => {
-        const label = cur === "en" ? "Engligh" : "日本語";
+        const label = cur === "en" ? "English" : "日本語";
 
         return (
           <option key={cur} value={cur}>

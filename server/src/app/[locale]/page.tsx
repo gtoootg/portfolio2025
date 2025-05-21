@@ -42,7 +42,7 @@ export default function Home() {
           height: `calc(100vh - ${HEADER_HEIGHT}px)`,
         }}
       />
-      <div className={`absolute w-full flex flex-col items-center justify-center bg-black bg-opacity-30`} style={{ height: `calc(100vh - ${HEADER_HEIGHT}px)`,}}>
+      <div className={`absolute w-full flex flex-col items-center justify-center bg-black bg-opacity-30 px-10`} style={{ height: `calc(100vh - ${HEADER_HEIGHT}px)`,}}>
       <h2 className="text-4xl font-bold mb-4">Welcome to My Website</h2>
       <p className="text-2xl mb-6 font-bold">{t("caption")}</p>
         <Link href="/about">
