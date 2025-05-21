@@ -1,0 +1,16 @@
+# Dockerfile.dev
+FROM node:18-alpine
+
+# 作業ディレクトリ
+WORKDIR /app
+
+# 依存ファイルを先にコピー（キャッシュを効かせる）
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install -g npm && npm install
+
+# 残りのファイルをコピー
+COPY . .
+
+# Next.jsを開発モードで起動
+CMD ["npm", "run", "dev"]
