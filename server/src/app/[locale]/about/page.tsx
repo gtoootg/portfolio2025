@@ -42,7 +42,7 @@ export default async function About() {
   return (
     <div className="max-w-6xl mx-auto flex flex-col pt-10 gap-20">
       {list.map((el, i) => (
-        <ProfileCard {...el} flexReverse={i % 2 === 0} />
+        <ProfileCard {...el} flexReverse={i % 2 === 0} key={i} />
       ))}
     </div>
   );
