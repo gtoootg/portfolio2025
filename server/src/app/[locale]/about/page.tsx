@@ -36,7 +36,7 @@ export default async function About() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto flex flex-col pt-10 gap-20">
+    <div className="max-w-6xl mx-auto flex flex-col pt-10 pb-10 gap-20 px-4 sm:px-6">
       {list.map((el, i) => (
         <ProfileCard {...el} flexReverse={i % 2 === 0} key={i} />
       ))}

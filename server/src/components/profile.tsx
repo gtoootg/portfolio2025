@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 
-export default async function ProfileCard({
+export default function ProfileCard({
   imageUrl,
   imageAlt,
   title,
@@ -15,19 +15,20 @@ export default async function ProfileCard({
 }) {
   return (
     <div
-      className={`flex gap-10 items-center ${flexReverse ? "flex-row-reverse" : "flex-row"} `}
+      className={`flex flex-col md:flex-row ${flexReverse ? "md:flex-row-reverse" : ""} gap-8 md:gap-10 items-center`}
     >
-      <Image
-        src={imageUrl}
-        alt={imageAlt}
-        className="shadow-2xl shrink-0"
-        objectFit="fill"
-        width={450}
-        height={300}
-      />
-      <div className="flex flex-col gap-4">
-        <h2 className="text-3xl font-bold">{title}</h2>
-        <p className="text-lg">{caption}</p>
+      <div className="w-full md:w-[450px] h-[250px] md:h-[300px] relative shrink-0">
+        <Image
+          src={imageUrl}
+          alt={imageAlt}
+          fill
+          className="object-cover rounded-xl shadow-2xl"
+          sizes="(max-width: 768px) 100vw, 450px"
+        />
+      </div>
+      <div className="flex-1 flex flex-col gap-4 w-full">
+        <h2 className="text-2xl md:text-3xl font-bold">{title}</h2>
+        <p className="text-base md:text-lg">{caption}</p>
       </div>
     </div>
   );
