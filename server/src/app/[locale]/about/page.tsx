@@ -4,10 +4,6 @@ import techpilotImage from "../../../../public/techpilot.webp";
 import programmingImage from "../../../../public/programming.jpg";
 import profileImage from "../../../../public/profile.webp";
 import cologneImage from "../../../../public/cologne.jpg";
-//自己紹介
-//なぜドイツに移住したのか
-//ドイツでの仕事
-//趣味
 
 export default async function About() {
   const t = await getTranslations("/about");
