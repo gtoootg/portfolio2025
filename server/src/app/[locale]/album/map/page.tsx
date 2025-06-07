@@ -5,16 +5,18 @@ export default async function AlbumMapPage() {
   const flickrData = await fetchFlickrPhotos();
   const center = { lat: 50.941278, lng: 6.958281 };
 
-  const markers = flickrData.photos.photo
-    .filter(
-      (photo) =>
-        photo.location && photo.location.latitude && photo.location.longitude
-    )
-    .map((photo) => ({
-      lat: photo.location ? parseFloat(photo.location.latitude) : 0,
-      lng: photo.location ? parseFloat(photo.location.longitude) : 0,
-      key: photo.id,
-    }));
+  const markers = flickrData.photos.photo.reduce<
+    { lat: number; lng: number; key: string }[]
+  >((acc, photo) => {
+    if (photo.location && photo.location.latitude && photo.location.longitude) {
+      acc.push({
+        lat: parseFloat(photo.location.latitude),
+        lng: parseFloat(photo.location.longitude),
+        key: photo.id,
+      });
+    }
+    return acc;
+  }, []);
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
