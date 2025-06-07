@@ -76,8 +76,10 @@ interface FlickrPhotoInfo {
   tags: { tag: unknown[] };
   urls: FlickrPhotoUrls;
   media: string;
-  latitude: number;
-  longitude: number;
+  location?: {
+    latitude: string;
+    longitude: string;
+  };
 }
 
 interface FetchFlickrPhotoInfoResponse {
@@ -85,11 +87,10 @@ interface FetchFlickrPhotoInfoResponse {
   stat: string;
 }
 
-export type FetchFlickrPhotosResponse = {
-  photos: {
-    photo: FlickrPhotoInfo[];
-  };
-};
+export type FetchFlickrPhotosResponse = Pick<
+  FlickrPhotoInfo,
+  "server" | "id" | "secret"
+> & { latitude?: string; longitude?: string };
 
 interface GetExifDataResponse {
   photo: {
@@ -117,39 +118,43 @@ const filterExifData = (exifData: GetExifDataResponse, tagName: string) => {
   ];
 };
 
-export const getPhotoUrl = (photo: FlickrPhotoInfo, size: string = "z") =>
+export const getPhotoUrl = (
+  photo: Pick<FlickrPhotoInfo, "server" | "id" | "secret">,
+  size: string = "z"
+) =>
   `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_${size}.jpg`;
 
-export const fetchFlickrPhotos =
-  async (): Promise<FetchFlickrPhotosResponse> => {
-    const { FLICKR_API_KEY, FLICKR_USER_ID, FLICKR_API_URL } = process.env;
+export const fetchFlickrPhotos = async (): Promise<{
+  photos: { photo: FetchFlickrPhotosResponse[] };
+}> => {
+  const { FLICKR_API_KEY, FLICKR_USER_ID, FLICKR_API_URL } = process.env;
 
-    if (!FLICKR_API_KEY || !FLICKR_USER_ID) {
-      throw new Error("Missing API key or User ID");
-    }
+  if (!FLICKR_API_KEY || !FLICKR_USER_ID) {
+    throw new Error("Missing API key or User ID");
+  }
 
-    const params = new URLSearchParams({
-      method: "flickr.people.getPhotos",
-      api_key: FLICKR_API_KEY,
-      user_id: FLICKR_USER_ID,
-      format: "json",
-      nojsoncallback: "1",
-      extras: "geo",
-    });
+  const params = new URLSearchParams({
+    method: "flickr.people.getPhotos",
+    api_key: FLICKR_API_KEY,
+    user_id: FLICKR_USER_ID,
+    format: "json",
+    nojsoncallback: "1",
+    extras: "geo",
+  });
 
-    const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`, {
-      cache: "force-cache",
-      next: { revalidate: 60 },
-    });
+  const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`, {
+    cache: "force-cache",
+    next: { revalidate: 60 },
+  });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch photos: ${response.statusText}`);
-    }
+  if (!response.ok) {
+    throw new Error(`Failed to fetch photos: ${response.statusText}`);
+  }
 
-    const data = await response.json();
+  const data = await response.json();
 
-    return data;
-  };
+  return data;
+};
 
 export const fetchFlickrPhotoInfoById = async (
   id: string

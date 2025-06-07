@@ -12,15 +12,19 @@ export const routing = defineRouting({
     "/": "/",
     "/album": {
       en: "/album",
-      jp: "/syashin",
+      jp: "/album",
     },
     "/about": {
       en: "/about",
-      jp: "/jiko-shoukai",
+      jp: "/about",
     },
     "/album/[id]": {
       en: "/album/[id]",
-      jp: "/syashin/[id]",
+      jp: "/album/[id]",
+    },
+    "/album/map": {
+      en: "/album/map",
+      jp: "/album/map",
     },
   },
 });

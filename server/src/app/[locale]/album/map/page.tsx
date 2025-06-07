@@ -1,7 +1,7 @@
 import { fetchFlickrPhotos, getPhotoUrl } from "@/api/flickr-api";
 import AlbumMap, {
   AlbumMapMarkerProps,
-} from "@/components/google-map/album-map";
+} from "@/components/google-map/album-map/album-map";
 
 export default async function AlbumMapPage() {
   const flickrData = await fetchFlickrPhotos();

@@ -58,7 +58,7 @@ export default async function PhotoDetailPage({
                 <p className="text-sm text-gray-500">
                   {t("uploadedOn", {
                     date: new Date(
-                      parseInt(photo.dates.posted) * 1000,
+                      parseInt(photo.dates.posted) * 1000
                     ).toLocaleDateString(),
                   })}
                 </p>

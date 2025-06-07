@@ -12,6 +12,8 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      keyframes: { fadein: { to: { opacity: "1" } } },
+      animation: { fadein: "fadein 0.5s forwards" },
     },
   },
   plugins: [],

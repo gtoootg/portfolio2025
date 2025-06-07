@@ -2,8 +2,8 @@
   "title": "Hello world!",
   "about": "Hellow about",
 
-  "top":{
-    "caption":"ドイツ在住エンジニアの後藤倫宏です。このサイトでは、自身の経歴やドイツでの趣味について紹介しています。",
+  "top": {
+    "caption": "ドイツ在住エンジニアの後藤倫宏です。このサイトでは、自身の経歴やドイツでの趣味について紹介しています。",
     "link": "詳しく見る"
   },
   "/about": {
@@ -25,6 +25,7 @@
     }
   },
   "/album": {
+    "seeOnMap": "地図で見る",
     "uploadedOn": "投稿日: {date}",
     "takenOn": "撮影日: {date}",
     "noDescription": "説明はありません。",
