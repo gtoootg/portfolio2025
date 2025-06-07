@@ -133,6 +133,7 @@ export const fetchFlickrPhotos =
       user_id: FLICKR_USER_ID,
       format: "json",
       nojsoncallback: "1",
+      extras: "geo",
     });
 
     const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`, {
@@ -150,7 +151,7 @@ export const fetchFlickrPhotos =
   };
 
 export const fetchFlickrPhotoInfoById = async (
-  id: string,
+  id: string
 ): Promise<FetchFlickrPhotoInfoResponse> => {
   const { FLICKR_API_KEY, FLICKR_USER_ID, FLICKR_API_URL } = process.env;
   if (!FLICKR_API_KEY || !FLICKR_USER_ID) {
@@ -178,7 +179,7 @@ export const fetchFlickrPhotoInfoById = async (
 };
 
 export const fetchFlickrPhotoExif = async (
-  id: string,
+  id: string
 ): Promise<Record<string, string>> => {
   const { FLICKR_API_KEY, FLICKR_API_URL } = process.env;
 
