@@ -76,7 +76,8 @@ interface FlickrPhotoInfo {
   tags: { tag: unknown[] };
   urls: FlickrPhotoUrls;
   media: string;
-  location?: { latitude: string; longitude: string };
+  latitude: number;
+  longitude: number;
 }
 
 interface FetchFlickrPhotoInfoResponse {

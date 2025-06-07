@@ -5,7 +5,12 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 export interface GoogleMapClusterProps {
   center: { lat: number; lng: number };
   zoom: number;
-  markers: { lat: number; lng: number; key?: string | number }[];
+  markers: {
+    lat: number;
+    lng: number;
+    key?: string | number;
+    imageUrl?: string;
+  }[];
 }
 
 export default function GoogleMapCluster({
@@ -23,6 +28,15 @@ export default function GoogleMapCluster({
         new window.google.maps.Marker({
           position: { lat: marker.lat, lng: marker.lng },
           map,
+          ...(marker.imageUrl
+            ? {
+                icon: {
+                  url: marker.imageUrl,
+                  scaledSize: new window.google.maps.Size(48, 48),
+                  anchor: new window.google.maps.Point(24, 24),
+                },
+              }
+            : {}),
         })
     );
     new MarkerClusterer({ markers: gMarkers, map });

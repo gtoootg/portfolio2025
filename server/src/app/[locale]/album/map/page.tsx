@@ -1,4 +1,4 @@
-import { fetchFlickrPhotos } from "@/api/flickr-api";
+import { fetchFlickrPhotos, getPhotoUrl } from "@/api/flickr-api";
 import GoogleMapCluster from "@/components/google-map/google-map-cluster";
 
 export default async function AlbumMapPage() {
@@ -6,13 +6,17 @@ export default async function AlbumMapPage() {
   const center = { lat: 50.941278, lng: 6.958281 };
 
   const markers = flickrData.photos.photo.reduce<
-    { lat: number; lng: number; key: string }[]
+    { lat: number; lng: number; key: string; imageUrl?: string }[]
   >((acc, photo) => {
-    if (photo.location && photo.location.latitude && photo.location.longitude) {
+    const lat = photo.latitude;
+    const lng = photo.longitude;
+
+    if (lat && lng) {
       acc.push({
-        lat: parseFloat(photo.location.latitude),
-        lng: parseFloat(photo.location.longitude),
+        lat: Number(lat),
+        lng: Number(lng),
         key: photo.id,
+        imageUrl: getPhotoUrl(photo, "w"),
       });
     }
     return acc;
