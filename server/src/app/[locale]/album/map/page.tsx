@@ -2,8 +2,10 @@ import { fetchFlickrPhotos, getPhotoUrl } from "@/api/flickr-api";
 import AlbumMap, {
   AlbumMapMarkerProps,
 } from "@/components/google-map/album-map/album-map";
+import { getTranslations } from "next-intl/server";
 
 export default async function AlbumMapPage() {
+  const t = await getTranslations("/album");
   const flickrData = await fetchFlickrPhotos();
   const center = { lat: 50.941278, lng: 6.958281 };
 
@@ -24,5 +26,11 @@ export default async function AlbumMapPage() {
     []
   );
 
-  return <AlbumMap center={center} markers={markers} />;
+  return (
+    <AlbumMap
+      center={center}
+      markers={markers}
+      lightboxLinkLabel={t("map.lightboxLink")}
+    />
+  );
 }

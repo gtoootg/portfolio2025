@@ -37,6 +37,9 @@
     "fNumber": "Aperture (F-number)",
     "exposure": "Shutter Speed",
     "focalLength": "Focal Length",
-    "untitled": "Untitled"
+    "untitled": "Untitled",
+    "map": {
+      "lightboxLink": "Go to Detail Page"
+    }
   }
 }

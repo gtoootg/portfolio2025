@@ -36,6 +36,9 @@
     "fNumber": "F値(絞り)",
     "exposure": "シャッター速度",
     "focalLength": "焦点距離",
-    "untitled": "タイトルなし"
+    "untitled": "タイトルなし",
+    "map": {
+      "lightboxLink": "詳細ページへ"
+    }
   }
 }
