@@ -9,6 +9,7 @@ import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import GoogleMapApi from "@/components/google-map/google-map";
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/16/solid";
+import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 
 export default async function PhotoDetailPage({
@@ -76,13 +77,30 @@ export default async function PhotoDetailPage({
 
           <div className="h-[300px] flex items-center justify-center bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg shadow-md">
             {photo.location ? (
-              <GoogleMapApi
-                center={{
-                  lat: Number(photo.location.latitude),
-                  lng: Number(photo.location.longitude),
-                }}
-                zoom={10}
-              />
+              <>
+                <GoogleMapApi
+                  center={{
+                    lat: Number(photo.location.latitude),
+                    lng: Number(photo.location.longitude),
+                  }}
+                  zoom={10}
+                />
+                <div className="mt-4 flex justify-center">
+                  <Link
+                    href={{
+                      pathname: "/location",
+                      query: {
+                        lat: Number(photo.location.latitude),
+                        lng: Number(photo.location.longitude),
+                      },
+                    }}
+                    className="inline-flex items-center gap-2 px-4 py-1 rounded bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition-all duration-200 text-sm"
+                  >
+                    <MapPinIcon className="w-5 h-5 text-white" />
+                    <span>この周辺の観光地を見る</span>
+                  </Link>
+                </div>
+              </>
             ) : (
               <div className="flex flex-col items-center text-gray-600">
                 <MapPinIcon className="h-16 w-16 text-gray-400" />

@@ -26,6 +26,14 @@ export const routing = defineRouting({
       en: "/album/map",
       jp: "/album/map",
     },
+    "/location/[id]": {
+      en: "/location",
+      jp: "/location",
+    },
+    "/location": {
+      en: "/location",
+      jp: "/location",
+    },
   },
 });
 
