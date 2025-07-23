@@ -1,12 +1,15 @@
-import { fetchFlickrPhotos, getPhotoUrl } from "@/api/flickr-api";
+"use client";
+
+import { getPhotoUrl } from "@/api/flickr-api";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
 import { MapIcon } from "@heroicons/react/24/solid";
+import { useFlickrPhotos } from "@/api/use-flickr-photos.hooks";
+import { useTranslations } from "next-intl";
 
-export default async function Album() {
-  const t = await getTranslations("/album");
-  const flickrData = await fetchFlickrPhotos();
+export default function Album() {
+  const t = useTranslations("/album");
+  const { data, error, isLoading } = useFlickrPhotos();
 
   return (
     <div className="max-w-screen-lg mx-auto p-4">
@@ -20,7 +23,7 @@ export default async function Album() {
         </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {flickrData.photos.photo.map((data, index: number) => {
+        {data.map((data, index: number) => {
           const url = getPhotoUrl(data, "w");
           return (
             <div
