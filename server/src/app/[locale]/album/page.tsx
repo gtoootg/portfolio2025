@@ -6,13 +6,43 @@ import { Link } from "@/i18n/routing";
 import { MapIcon } from "@heroicons/react/24/solid";
 import { useFlickrPhotos } from "@/api/use-flickr-photos.hooks";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { Button } from "@/components/atoms/button/button";
+import { Tag } from "@/components/atoms/tag/tag";
 
 export default function Album() {
   const t = useTranslations("/album");
   const { data, error, isLoading } = useFlickrPhotos();
 
+  const [inputTag, setInputTag] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+
+  const handleTagSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const tag = inputTag.trim();
+    if (tag && !tags.includes(tag)) {
+      setTags([...tags, tag]);
+      setInputTag("");
+    }
+  };
+
   return (
     <div className="max-w-screen-lg mx-auto p-4">
+      <form onSubmit={handleTagSubmit} className="flex gap-2 mb-4">
+        <input
+          type="text"
+          value={inputTag}
+          onChange={(e) => setInputTag(e.target.value)}
+          placeholder="タグを入力"
+          className="border rounded px-3 py-2 w-48"
+        />
+        <Button label="register" />
+      </form>
+      <div className="flex flex-wrap gap-2 mb-6">
+        {tags.map((tag) => (
+          <Tag key={tag} label={tag} />
+        ))}
+      </div>
       <div className="flex justify-end mb-6">
         <Link
           href="/album/map"
