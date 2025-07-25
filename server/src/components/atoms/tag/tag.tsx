@@ -1,10 +1,13 @@
 import clsx from "clsx";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+import { MouseEventHandler } from "react";
 
 interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   label: string;
+  onDelete: MouseEventHandler<SVGSVGElement>;
 }
 
-export const Tag = ({ label, className, ...props }: TagProps) => {
+export const Tag = ({ label, className, onDelete, ...props }: TagProps) => {
   return (
     <span
       className={clsx(
@@ -14,6 +17,10 @@ export const Tag = ({ label, className, ...props }: TagProps) => {
       {...props}
     >
       {label}
+      <XMarkIcon
+        className="inline-block w-4 h-4 ml-2 cursor-pointer"
+        onClick={onDelete}
+      />
     </span>
   );
 };

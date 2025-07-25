@@ -24,7 +24,6 @@ export default function GoogleMapCluster({
 }: GoogleMapClusterProps) {
   const { GOOGLE_MAP_API_KEY } = process.env;
 
-  // GoogleMapのonLoadでクラスタリングをセットアップ
   const handleOnLoad = (map: google.maps.Map) => {
     if (!markers.length) return;
     const gMarkers = markers.map((marker) => {
@@ -49,8 +48,12 @@ export default function GoogleMapCluster({
     new MarkerClusterer({ markers: gMarkers, map });
   };
 
+  if (!GOOGLE_MAP_API_KEY) {
+    return;
+  }
+
   return (
-    <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY as string} language="en">
+    <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY} language="en">
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
         center={center}
