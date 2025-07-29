@@ -39,6 +39,8 @@
     "untitled": "タイトルなし",
     "map": {
       "lightboxLink": "詳細ページへ"
-    }
+    },
+    "tagPlaceholder": "例: Italy, Japan, etc",
+    "tagSubmit": "追加"
   }
 }

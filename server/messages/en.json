@@ -40,6 +40,8 @@
     "untitled": "Untitled",
     "map": {
       "lightboxLink": "Go to Detail Page"
-    }
+    },
+    "tagPlaceholder": "Example: Italy, Japan, etc",
+    "tagSubmit": "Add tag"
   }
 }

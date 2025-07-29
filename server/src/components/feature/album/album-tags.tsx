@@ -1,5 +1,6 @@
 import { Button } from "@/components/atoms/button/button";
 import { Tag } from "@/components/atoms/tag/tag";
+import { useTranslations } from "next-intl";
 
 interface AlbumTagsProps {
   tags: string[];
@@ -16,6 +17,8 @@ export const AlbumTags = ({
   onChangeInput,
   onDeleteTag,
 }: AlbumTagsProps) => {
+  const t = useTranslations("/album");
+
   return (
     <div>
       <form onSubmit={handleTagSubmit} className="flex gap-2 mb-4">
@@ -23,10 +26,10 @@ export const AlbumTags = ({
           type="text"
           value={inputTag}
           onChange={onChangeInput}
-          placeholder="タグを入力"
+          placeholder={t("tagPlaceholder")}
           className="border rounded px-3 py-2 w-48"
         />
-        <Button label="register" />
+        <Button label={t("tagSubmit")} />
       </form>
       <div className="flex flex-wrap gap-2 mb-6">
         {tags.map((tag) => (
