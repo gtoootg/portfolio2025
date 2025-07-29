@@ -7,7 +7,7 @@ export type AlbumMapMarkerProps = {
   lat: number;
   lng: number;
   imageUrl?: string;
-  [key: string]: any;
+  key?: string | number;
 };
 
 type AlbumMapProps = {
@@ -70,7 +70,7 @@ export default function AlbumMap({
         markers={markers}
         onMarkerClick={(marker: AlbumMapMarkerProps) => {
           if (marker.imageUrl) {
-            setLightboxImage({ url: marker.imageUrl, id: marker.key });
+            setLightboxImage({ url: marker.imageUrl, id: marker.imageUrl });
             return;
           }
           setLightboxImage(null);
