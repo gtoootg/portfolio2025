@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { FetchFlickrPhotosResponse } from "./flickr-api";
 
-export const useFlickrPhotos = () => {
+export const useFlickrPhotos = (tags?: string) => {
   const apiKey = process.env.NEXT_PUBLIC_FLICKR_API_KEY;
   const userId = process.env.NEXT_PUBLIC_FLICKR_USER_ID;
   const apiUrl = process.env.NEXT_PUBLIC_FLICKR_API_URL;
@@ -14,6 +14,10 @@ export const useFlickrPhotos = () => {
     nojsoncallback: "1",
     extras: "geo",
   });
+
+  if (tags) {
+    params.append("tags", tags);
+  }
 
   const { data, error, isLoading } = useSWR(
     `${apiUrl}?${params.toString()}`,
