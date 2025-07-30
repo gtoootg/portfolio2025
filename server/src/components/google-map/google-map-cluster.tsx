@@ -22,7 +22,7 @@ export default function GoogleMapCluster({
   markers,
   onMarkerClick,
 }: GoogleMapClusterProps) {
-  const { GOOGLE_MAP_API_KEY } = process.env;
+  const googleMapApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
   const handleOnLoad = (map: google.maps.Map) => {
     if (!markers.length) return;
@@ -48,12 +48,12 @@ export default function GoogleMapCluster({
     new MarkerClusterer({ markers: gMarkers, map });
   };
 
-  if (!GOOGLE_MAP_API_KEY) {
+  if (!googleMapApiKey) {
     return;
   }
 
   return (
-    <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY} language="en">
+    <LoadScript googleMapsApiKey={googleMapApiKey} language="en">
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
         center={center}

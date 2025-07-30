@@ -12,10 +12,14 @@ export default function GoogleMapApi({
   zoom,
   handleClickMap,
 }: GoogleMapApiProps) {
-  const { GOOGLE_MAP_API_KEY } = process.env;
+  const googleMapApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
+  if (!googleMapApiKey) {
+    return;
+  }
 
   return (
-    <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY as string} language={"en"}>
+    <LoadScript googleMapsApiKey={googleMapApiKey} language={"en"}>
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
         center={center}
