@@ -1,6 +1,6 @@
 "use client";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import GoogleMapApi from "./google-map";
 
 export interface GoogleMapCluserMarkerProps {
   lat: number;
@@ -22,7 +22,7 @@ export default function GoogleMapCluster({
   markers,
   onMarkerClick,
 }: GoogleMapClusterProps) {
-  const { GOOGLE_MAP_API_KEY } = process.env;
+  // const { GOOGLE_MAP_API_KEY } = process.env;
 
   const handleOnLoad = (map: google.maps.Map) => {
     if (!markers.length) return;
@@ -48,18 +48,5 @@ export default function GoogleMapCluster({
     new MarkerClusterer({ markers: gMarkers, map });
   };
 
-  if (!GOOGLE_MAP_API_KEY) {
-    return;
-  }
-
-  return (
-    <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY} language="en">
-      <GoogleMap
-        mapContainerStyle={{ width: "100%", height: "100%" }}
-        center={center}
-        zoom={zoom}
-        onLoad={handleOnLoad}
-      />
-    </LoadScript>
-  );
+  return <GoogleMapApi onLoad={handleOnLoad} center={center} zoom={zoom} />;
 }

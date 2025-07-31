@@ -1,29 +1,41 @@
 "use client";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  GoogleMapProps,
+  Marker,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 
-export interface GoogleMapApiProps {
-  center: { lat: number; lng: number };
-  zoom: number;
+export interface GoogleMapApiProps extends Omit<GoogleMapProps, "onClick"> {
   handleClickMap?: (e: google.maps.MapMouseEvent) => void;
+  hasMarker?: boolean;
 }
 
 export default function GoogleMapApi({
-  center,
-  zoom,
   handleClickMap,
+  hasMarker,
+  ...props
 }: GoogleMapApiProps) {
-  const { GOOGLE_MAP_API_KEY } = process.env;
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!,
+    language: "en",
+  });
+
+  if (loadError) return <p>Failed to load</p>;
+  if (!isLoaded) return <p>Loading...</p>;
 
   return (
-    <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY as string} language={"en"}>
-      <GoogleMap
-        mapContainerStyle={{ width: "100%", height: "100%" }}
-        center={center}
-        zoom={zoom}
-        onClick={handleClickMap}
-      >
-        <Marker position={center} />
-      </GoogleMap>
-    </LoadScript>
+    <GoogleMap
+      mapContainerStyle={{
+        width: "100%",
+        height: "100%",
+        ...props.mapContainerStyle,
+      }}
+      onClick={handleClickMap}
+      {...props}
+    >
+      {props.children}
+      {props.center && hasMarker && <Marker position={props.center} />}
+    </GoogleMap>
   );
 }

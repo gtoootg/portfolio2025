@@ -10,6 +10,7 @@ import GoogleMapApi from "@/components/google-map/google-map";
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/16/solid";
 import { getTranslations } from "next-intl/server";
+import { Marker } from "@react-google-maps/api";
 
 export default async function PhotoDetailPage({
   params,
@@ -82,6 +83,7 @@ export default async function PhotoDetailPage({
                   lng: Number(photo.location.longitude),
                 }}
                 zoom={10}
+                hasMarker
               />
             ) : (
               <div className="flex flex-col items-center text-gray-600">
