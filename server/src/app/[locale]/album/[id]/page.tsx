@@ -10,7 +10,6 @@ import GoogleMapApi from "@/components/google-map/google-map";
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/16/solid";
 import { getTranslations } from "next-intl/server";
-import { Marker } from "@react-google-maps/api";
 
 export default async function PhotoDetailPage({
   params,
