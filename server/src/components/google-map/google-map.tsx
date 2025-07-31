@@ -4,6 +4,7 @@ import {
   GoogleMapProps,
   Marker,
   useJsApiLoader,
+  MarkerClusterer,
 } from "@react-google-maps/api";
 
 export interface GoogleMapApiProps extends Omit<GoogleMapProps, "onClick"> {
