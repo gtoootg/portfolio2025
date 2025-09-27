@@ -120,7 +120,7 @@ const filterExifData = (exifData: GetExifDataResponse, tagName: string) => {
 
 export const getPhotoUrl = (
   photo: Pick<FlickrPhotoInfo, "server" | "id" | "secret">,
-  size: string = "z"
+  size: string = "b"
 ) =>
   `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_${size}.jpg`;
 
@@ -140,6 +140,7 @@ export const fetchFlickrPhotos = async (): Promise<{
     format: "json",
     nojsoncallback: "1",
     extras: "geo",
+    size: "b",
   });
 
   const response = await fetch(`${FLICKR_API_URL}?${params.toString()}`, {

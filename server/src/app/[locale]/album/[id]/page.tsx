@@ -1,6 +1,8 @@
+export const revalidate = 3600;
 import {
   fetchFlickrPhotoExif,
   fetchFlickrPhotoInfoById,
+  fetchFlickrPhotos,
   getPhotoUrl,
 } from "@/api/flickr-api";
 import Image from "next/image";
@@ -10,6 +12,7 @@ import GoogleMapApi from "@/components/google-map/google-map";
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/16/solid";
 import { getTranslations } from "next-intl/server";
+import { Link } from "../../../../i18n/routing";
 
 export default async function PhotoDetailPage({
   params,
@@ -20,7 +23,7 @@ export default async function PhotoDetailPage({
   }>;
 }) {
   const { id } = await params;
-
+  const { photos } = await fetchFlickrPhotos();
   const { photo } = await fetchFlickrPhotoInfoById(id);
   const { camera, iso, fNumber, exposure, focalLength } =
     await fetchFlickrPhotoExif(id);
@@ -28,18 +31,38 @@ export default async function PhotoDetailPage({
 
   const t = await getTranslations("/album");
 
+  const currentPhotoIndex = photos.photo.findIndex((photo) => photo.id === id);
+  const photoPrev = photos.photo[currentPhotoIndex - 1]?.id;
+  const photoNext = photos.photo[currentPhotoIndex + 1]?.id;
+
   return (
     <>
       <div className={"w-full bg-gray-700 h-[600px] pt-4"}>
         <div className={"flex justify-center items-center gap-3"}>
-          <ChevronLeftIcon className="w-10 h-10 text-gray-300 hover:text-white" />
+          <div className={"w-10"}>
+            {photoPrev !== undefined && (
+              <Link
+                href={{ pathname: "/album/[id]", params: { id: photoPrev } }}
+              >
+                <ChevronLeftIcon className="w-10 h-10 text-gray-300 hover:text-white" />
+              </Link>
+            )}
+          </div>
           <Image
             src={url}
             alt={photo.title._content}
             width={810}
             height={540}
           />
-          <ChevronRightIcon className="w-10 h-10 text-gray-300 hover:text-white" />
+          <div className={"w-10"}>
+            {photoNext !== undefined && (
+              <Link
+                href={{ pathname: "/album/[id]", params: { id: photoNext } }}
+              >
+                <ChevronRightIcon className="w-10 h-10 text-gray-300 hover:text-white" />
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

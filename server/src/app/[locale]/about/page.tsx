@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import ProfileCard from "@/components/profile";
 import { getTranslations } from "next-intl/server";
 import techpilotImage from "../../../../public/techpilot.webp";
